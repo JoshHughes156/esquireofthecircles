@@ -1,4 +1,6 @@
 *.swp
+*.bin
+versions/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
