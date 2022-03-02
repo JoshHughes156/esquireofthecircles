@@ -1,7 +1,7 @@
 
 class Entity:
     
-    def __init__(self, name. health, location, inventory=list(), armor=list(), money=0, inv_max_weight=0):
+    def __init__(self, name, health, location, inventory=list(), armor=list(), money=0, inv_max_weight=0):
         self.name = name # The name of the current entity
         self.health = health # The health of the current entity
         self.location = location # Where in the world the entity is located
@@ -37,3 +37,15 @@ class Entity:
         del self.inventory[item_index]
         return True
 
+class NPC(Entity):
+
+    def __init__(self, name, dialog_location):
+        self.name = name
+        self.dialog_location = dialog_path
+
+    def load_dialog(self):
+        with open(self.dialog_path, 'r+') as f:
+            self.dialog = f.readlines()
+
+    def get_dialog(self, index):
+        return self.dialog[index]

@@ -26,3 +26,9 @@ gear(item):
 location:
 - name: str
 - neighbours: location[]
+
+
+game manager:
+get data about current location
+present data
+
