@@ -4,6 +4,7 @@ class Location:
     def __init__(self, name, access="", npcs=list()):
         self.name = name # Descriptive name to identify location
         self.access = access # Allows for locking of areas until later, multiple levels can be added with space delimiters, e.g. "1 2"
+        self.npcs = npcs
 
     def check_access(self, access_level):
         return self.access in access_level
