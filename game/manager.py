@@ -52,8 +52,9 @@ while True:
     elif choice == "2":
         for i, n in enumerate(player.location.npcs):
             print(f"{i+1}: {n.name}")
-        l = input("Would you like to talk to any of these people (0 to remain in current location): ")
+        l = input("Would you like to talk to any of these people: ")
         if int(l) <= len(player.location.npcs) and int(l) > 0:
+            print(f"The {player.location.npcs[int(l)-1].name} doesn't want to talk right now")
             continue # TODO add dialog interaction here
 
         continue

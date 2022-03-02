@@ -41,7 +41,7 @@ class NPC(Entity):
 
     def __init__(self, name, dialog_location):
         self.name = name
-        self.dialog_location = dialog_path
+        self.dialog_location = dialog_location
 
     def load_dialog(self):
         with open(self.dialog_path, 'r+') as f:
