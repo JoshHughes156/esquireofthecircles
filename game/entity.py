@@ -1,3 +1,4 @@
+from dialog import Dialog
 
 class Entity:
     
@@ -17,7 +18,7 @@ class Entity:
             self.health -= damage
             return False # Returns false as the entity didn't die
 
-    def die():
+    def die(self):
         print(f"{self.name} has died, dropping {self.moeny}g")
         return [self.money, self.inventory, self.armor] # List of all the drops of the entity
 
@@ -39,13 +40,13 @@ class Entity:
 
 class NPC(Entity):
 
-    def __init__(self, name, dialog_location):
+    def __init__(self, name, dialog_location, dialog_path='dialog/'):
         self.name = name
-        self.dialog_location = dialog_location
+        #self.dialog_location = dialog_location
+        self.dialog = Dialog()  
 
-    def load_dialog(self):
-        with open(self.dialog_path, 'r+') as f:
-            self.dialog = f.readlines()
+        self.dialog.load_from_file(dialog_location, dialog_path)
 
-    def get_dialog(self, index):
-        return self.dialog[index]
+    #def load_dialog(self):
+    #    with open(self.dialog_location, 'r') as f:
+    #        self.dialog = json.loads(f.read())

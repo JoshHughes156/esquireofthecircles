@@ -3,9 +3,9 @@ from location import Location
 
 
 # Instaniate some NPCs
-guard = NPC("Guard", "/")
-salesman = NPC("Salesman", "/")
-bartender = NPC("Bartender", "/")
+guard = NPC("Guard", "townguard1.txt", dialog_path="dialog/")
+salesman = NPC("Salesman", "empty.txt")
+bartender = NPC("Bartender", "empty.txt")
 
 # Initalise locations
 locations = []
@@ -54,7 +54,33 @@ while True:
             print(f"{i+1}: {n.name}")
         l = input("Would you like to talk to any of these people: ")
         if int(l) <= len(player.location.npcs) and int(l) > 0:
-            print(f"The {player.location.npcs[int(l)-1].name} doesn't want to talk right now")
+            #print(f"The {player.location.npcs[int(l)-1].name} doesn't want to talk right now")
+            player.location.npcs[int(l)-1].load_dialog()
+            dialog_root = player.location.npcs[int(l)-1].dialog
+            dia = dialog_root
+            while True:
+                current_line = list(dia.keys())[0].split('#')
+                print(current_line[0])
+                if current_line[1] == "END":
+                    break
+                else:
+                    #opts = list(dia[current_line].keys())
+                    opts = dia[current_line].keys()
+                    for option in opts:
+                        print(option.split('#')[0])
+                    choice = input("What do you reply?: ")
+                    while choice not in list(map(str, range(0, len(opts)))):
+                        print("Invalid choice")
+                        choice = input("What do you reply?: ")
+                    
+                    reply = dia[current_line][opts[int(choice) - 1]]
+                    reply = reply.split('#')
+                    print(reply[0])
+                    if reply[1] == "END":
+                        break
+                    else:
+                        dia = current_line
+                #break
             continue # TODO add dialog interaction here
 
         continue

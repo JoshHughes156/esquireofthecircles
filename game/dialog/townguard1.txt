@@ -1,0 +1,2 @@
+Hello world, this is the town guard speaking
+#townguard1_1.txt
