@@ -42,11 +42,11 @@ class NPC(Entity):
 
     def __init__(self, name, dialog_location, dialog_path='dialog/'):
         self.name = name
-        #self.dialog_location = dialog_location
-        self.dialog = Dialog()  
+        self.dialog_location = dialog_location
+        self.dialog_path = dialog_path
+        self.dialog = Dialog()
 
-        self.dialog.load_from_file(dialog_location, dialog_path)
-
-    #def load_dialog(self):
-    #    with open(self.dialog_location, 'r') as f:
-    #        self.dialog = json.loads(f.read())
+    def load(self):
+        generated_text = Dialog.load_from_file(self.dialog_location, dialog_path=self.dialog_path)
+        self.dialog.text = generated_text[0]
+        self.dialog.children = generated_text[1]

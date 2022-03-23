@@ -1,20 +1,26 @@
 
 class Dialog:
 
-    def __init__(self, text="", children=[]):
+    def __init__(self, text=list(), children=list()):
         self.text = text
         self.children = children
 
-    def load_from_file(self, filelocation, dialog_path="/dialog"):
+    @staticmethod
+    def load_from_file(filelocation, dialog_path="/dialog"):
         lines = 0
+        text = list()
+        children = list()
         with open(dialog_path + filelocation, 'r+') as f:
             lines = f.readlines()
         for line in lines:
             if '#' in line:
                 child = Dialog()
-                print(dialog_path + filelocation)
-                print(line.replace('#', '').rstrip())
-                child.load_from_file(line.replace('#', '').rstrip(), dialog_path)
-                self.children.append(child)
+                s = line.split('#')
+                child.load_from_file(s[1].rstrip(), dialog_path=dialog_path)
+                children.append(child)
+
+                text.append("> " + s[0])
             else:
-                self.text = line
+                text.append(line)
+                
+        return (text, children)
