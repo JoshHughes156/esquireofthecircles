@@ -60,7 +60,7 @@ while True:
         l = input("Would you like to talk to any of these people: ")
         if int(l) <= len(player.location.npcs) and int(l) > 0:
             d = player.location.npcs[int(l)-1].dialog
-            #__import__('sys').exit()
+            print('\n')
             while d != "END":
                 opts = []
                 for line in d.text:

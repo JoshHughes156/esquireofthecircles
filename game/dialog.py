@@ -16,11 +16,13 @@ class Dialog:
             if '#' in line:
                 child = Dialog()
                 s = line.split('#')
-                child.load_from_file(s[1].rstrip(), dialog_path=dialog_path)
+                c = Dialog.load_from_file(s[1].rstrip(), dialog_path=dialog_path)
+                child.text = c[0]
+                child.children = c[1]
                 children.append(child)
 
                 text.append("> " + s[0])
             else:
-                text.append(line)
-                
+                text.append(line.rstrip())
+
         return (text, children)

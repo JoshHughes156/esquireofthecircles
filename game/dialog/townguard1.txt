@@ -1,2 +1,2 @@
-Hello world, this is the town guard speaking
-Enter subtext#townguard1_1.txt
+How are you today?
+Good, wbu?#townguard1_1.txt
