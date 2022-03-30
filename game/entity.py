@@ -2,7 +2,7 @@ from dialog import Dialog
 
 class Entity:
     
-    def __init__(self, name, health, location, inventory=list(), armor=list(), money=0, inv_max_weight=0):
+    def __init__(self, name, health, location="", inventory=list(), armor=list(), money=0, inv_max_weight=0, weapon=0, hostile=False):
         self.name = name # The name of the current entity
         self.health = health # The health of the current entity
         self.location = location # Where in the world the entity is located
@@ -10,6 +10,7 @@ class Entity:
         self.armor = armor # The gear items currently equiped on the entity
         self.money = money # The money currently on the entity
         self.inv_max_weight = inv_max_weight # The max weight for the inventory
+        self.hostile = hostile # Whether or not this entity will engage a fight
 
     def take_damage(self, damage): # Allows the entity to take damage and die if the health is less than 0
         if damage >= self.health: # If the damage would cause death
@@ -45,6 +46,7 @@ class NPC(Entity):
         self.dialog_location = dialog_location
         self.dialog_path = dialog_path
         self.dialog = Dialog()
+        self.hostile = False
 
     def load(self):
         generated_text = Dialog.load_from_file(self.dialog_location, dialog_path=self.dialog_path)

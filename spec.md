@@ -32,3 +32,18 @@ game manager:
 get data about current location
 present data
 
+armor slots:
+helmet (20% * (1 - piece armor points/50))
+chestplate (50% * (1 - piece armor points/70))
+pants (20% * (1 - piece armor points/35))
+boots (10% * (1 - piece armor points/20))
+
+damage types: (x0.5 for weakness, x1.5 for strength)
+fire: weak to water
+water: weak to air
+air: weak to fire
+
+damage maths:
+final damage = round(total from each piece * damage scaling factor)
+damage on each piece:
+damage * type modifier * (protection contribution from piece * (piece armor stat/total possible armor points))
