@@ -11,6 +11,7 @@ class Entity:
         self.money = money # The money currently on the entity
         self.inv_max_weight = inv_max_weight # The max weight for the inventory
         self.hostile = hostile # Whether or not this entity will engage a fight
+        self.weapon = weapon
 
     def take_damage(self, damage): # Allows the entity to take damage and die if the health is less than 0
         if damage >= self.health: # If the damage would cause death

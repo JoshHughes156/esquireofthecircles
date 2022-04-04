@@ -3,7 +3,7 @@ from location import Location
 from item import Weapon, Gear
 
 
-# Instaniate some NPCs
+# Instantiate some NPCs
 guard = NPC("Guard", "townguard1.txt", dialog_path="dialog/")
 salesman = NPC("Salesman", "empty.txt")
 bartender = NPC("Bartender", "empty.txt")
@@ -33,7 +33,7 @@ locations.append(tavern)
 # Instantiate the player
 name = input("What would you like your character's name to be?: ")
 
-player = Entity(name, 10, town_square)
+player = Entity(name, 10, town_square, weapon=generic_sword)
 
 while True:
 
@@ -89,7 +89,28 @@ while True:
 
                     d = d.children[choice-1]
             else:
-                continue # Added the battle code in here
+                #continue # Added the battle code in here
+                player.money = 100 # Test remove before release
+                enemy = player.location.npcs[int(l)-1]
+                while True:
+                    # Player go
+                    choice = ""
+                    print("\nWhat will you do?\n1) Attack\n2) Flee")
+                    while choice not in ["1", "2"]:
+                        choice = input("Please enter your choice: ")
+                    
+                    if choice == "1":
+                        damage = Weapon.damage_calc(player.weapon, enemy.armor)
+                        print(f"You attack the {enemy.name} with your {player.weapon.name}, dealing {damage} damage")
+                        enemy.health -= damage
+                        if enemy.health > 0:
+                            print(f"The enemy is now on {enemy.health} health")
+                        else:
+                            drops = enemy.die()
+                    elif choice == "2":
+                        print(f"You drop {player.money*0.2}g whilst fleeing, you now have {player.money*0.8}g")
+                        player.money *= 0.8
+                        break
 
         continue
     elif choice == "3":
