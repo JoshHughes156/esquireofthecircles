@@ -14,14 +14,15 @@ class Entity:
         self.weapon = weapon
 
     def take_damage(self, damage): # Allows the entity to take damage and die if the health is less than 0
-        if damage >= self.health: # If the damage would cause death
+        self.health -= damage
+        if self.health <= 0: # If the damage would cause death
+            self.health = 0
             return self.die()
         else:
-            self.health -= damage
             return False # Returns false as the entity didn't die
 
     def die(self):
-        print(f"{self.name} has died, dropping {self.moeny}g")
+        print(f"{self.name} has died, dropping {self.money}g")
         return [self.money, self.inventory, self.armor] # List of all the drops of the entity
 
     def get_current_weight(self): # Gets the current weight of the inventory
