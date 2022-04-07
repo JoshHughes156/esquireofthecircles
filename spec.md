@@ -47,3 +47,14 @@ damage maths:
 final damage = round(total from each piece * damage scaling factor)
 damage on each piece:
 damage * type modifier * (protection contribution from piece * (piece armor stat/total possible armor points))
+
+Town Square:
+- town guard - dialog relating to how he's not fighting the orcs in the south
+- salesman - dialog about need to get in more stock
+
+Tavern:
+- Bartender - dialog relating to the ale shipments not arriving due to the orcs
+- Drunkard - Compare the player to an orc
+
+Woods:
+- Goblin - "Ndichakuuraya iwe munhu anetsvina"

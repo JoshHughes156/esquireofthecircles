@@ -7,11 +7,13 @@ from item import Weapon, Gear
 
 # Instantiate some NPCs
 guard = NPC("Guard", "townguard1.txt", dialog_path="dialog/")
-salesman = NPC("Salesman", "empty.txt")
-bartender = NPC("Bartender", "empty.txt")
+salesman = NPC("Salesman", "salesman.txt")
+bartender = NPC("Bartender", "bartender.txt")
 generic_armor = [Gear("Leather Cap", 0, 3, "helmet"), Gear("Leather Chestplate", 0, 5, "chestplate"), Gear("Leather Pants", 0, 5, "pants"), Gear("Leather Boots", 0, 2, "boots")]
 generic_sword = Weapon("Wooden broadsword", 0, 5)
-drunkard = Entity("Drunkard", 12, armor=generic_armor, money=10, weapon=generic_sword, hostile=True)
+fists = Weapon("Fists", 0, 8)
+drunkard = Entity("Drunkard", 12, armor=generic_armor, money=10, weapon=generic_sword, hostile=True, battlequote="You look like an orc!")
+goblin = Entity("Goblin", 6, money=15, weapon=fists, hostile=True, battlequote="Ndichakuuraya iwe munhu anetsvina!")
 
 # Call the load on all the npcs
 guard.load()
@@ -22,18 +24,22 @@ bartender.load()
 locations = []
 town_square = Location("Town square", npcs=[guard, salesman])
 tavern = Location("Tavern", npcs=[bartender, drunkard])
+woods = Location("Woods", npcs=[goblin])
 
 # Set all the neighbours of the locations
-town_square.set_neighbours([tavern])
+town_square.set_neighbours([tavern, woods])
 tavern.set_neighbours([town_square])
+woods.set_neighbours([town_square])
 
 # Save them all to a list of locations
 locations.append(town_square)
 locations.append(tavern)
+locations.append(woods)
 
 
 # Instantiate the player
 name = input("What would you like your character's name to be?: ")
+print(f"Welcome to Esquire of the Circle {name}!\nAre you ready for the adventure of a lifetime?")
 
 player = Entity(name, 25, town_square, weapon=generic_sword)
 
@@ -58,16 +64,19 @@ while True:
 
     print('')
 
-    if choice == "1":
+    if choice == "1": # Movement
         for i, n in enumerate(player.location.get_neighbours()):
             print(f"{i+1}: {n.name}")
         print("0: Exit menu")
         l = input("Would you like to travel to any of these locations: ")
         if int(l) <= len(player.location.get_neighbours()) and int(l) > 0:
-            player.location = player.location.get_neighbours()[i-1]
+            player.location = player.location.get_neighbours()[int(l)-1]
 
         continue
     elif choice == "2":
+        if len(player.location.npcs) == 0:
+            print("There are no more NPCs in this area")
+            continue
         for i, n in enumerate(player.location.npcs):
             if not n.hostile:
                 print(f"{i+1}: {n.name}")
@@ -75,11 +84,12 @@ while True:
                 print(f"{i+1}: {n.name} (battle)")
         print("0: Exit menu")
         l = input("Would you like to talk to any of these people: ")
-        if int(l) <= len(player.location.npcs) and int(l) > 0:
+        if int(l) <= len(player.location.npcs) and int(l) > 0: # NPC dialog interaction
             if not player.location.npcs[int(l)-1].hostile:
                 d = player.location.npcs[int(l)-1].dialog
                 print('\n')
                 while d != "END":
+                    print('\n')
                     opts = []
                     for line in d.text:
                         if '>' not in line:
@@ -98,9 +108,9 @@ while True:
                         choice = int(input("Please enter your choosen dialog: "))
 
                     d = d.children[choice-1]
-            else:
-                #continue # Added the battle code in here
+            else: # Combat
                 enemy = player.location.npcs[int(l)-1]
+                print(enemy.battlequote)
                 while True:
                     # Player go
                     choice = ""
@@ -137,6 +147,6 @@ while True:
                         game_over()
 
         continue
-    elif choice == "3":
+    elif choice == "3": # Exit game
         print("\n########################\n|Thank you for playing!|\n########################")
         break

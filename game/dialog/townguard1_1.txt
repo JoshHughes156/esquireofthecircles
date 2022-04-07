@@ -1,2 +1,2 @@
-Well, you know what they say
-What do they say#townguard1_1_1.txt
+The orcs are waging war on us! We need to stop them!
+Nice talking to you#townguard1_3.txt

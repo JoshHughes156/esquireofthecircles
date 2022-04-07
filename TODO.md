@@ -2,6 +2,7 @@ Technical:
 Add shops/trading
 Add inventory system
 Add saving system
+Add dialog loops
 
 Game design:
 Create story

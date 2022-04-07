@@ -1,2 +1,4 @@
-How are you today?
-Good, wbu?#townguard1_1.txt
+Have you seen the latest casulaty reports for the southern front?
+What's on the southern front?#townguard1_1.txt
+What are the numbers?#townguard1_2.txt
+Nice talking to you#townguard1_3.txt
